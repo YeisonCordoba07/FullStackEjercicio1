@@ -97,7 +97,7 @@ El proyecto tiene como objetivo desarrollar una aplicación web de administraci�
 
 ## Condiciones Generales del Desarrollo
 
-- La calificación se hará de acuerdo con las rúbricas encontradas en el Excel [Criterios de calificación proyecto 2.xlsx](https://udeaeduco.sharepoint.com/:x:/r/sites/IngenieraWeb/Documentos compartidos/Proyectos/Proyecto 2/Criterios de calificaci%C3%B3n proyecto 2.xlsx).
+- La calificación se hará de acuerdo con las rúbricas encontradas en el Excel [Criterios de calificación proyecto 2.xlsx](https://udeaeduco.sharepoint.com/:x:/r/sites/IngenieraWeb/_layouts/15/Doc.aspx?sourcedoc=%7BE7CF998D-0521-481B-9535-B0CB4F73D2B8%7D&file=Criterios%20de%20calificaci%C3%B3n%20proyecto%202.xlsx&action=default&mobileredirect=true).
 - El proyecto debe ser desplegado en Vercel.
 - Los componentes desarrollados deben tener interfaces y tipados correctos, tal y como se vio en clase.
 - Se deben utilizar los estilos de Tailwind.
