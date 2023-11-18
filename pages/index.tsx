@@ -1,5 +1,13 @@
+import { Sidebar } from "@/components/Sidebar";
+
+
 const Home = () => {
-  return <main className='h-screen w-full flex items-center justify-center'>Hola mundo</main>;
+  return (
+    <main className="h-screen w-full flex ">
+      
+
+    </main>
+  );
 };
 
 export default Home;
