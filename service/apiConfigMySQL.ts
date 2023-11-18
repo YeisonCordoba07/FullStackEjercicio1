@@ -1,9 +1,9 @@
-const SERVER_URL = 'http://localhost:8080/api';
+const SERVER_URL = '/api';
 
 const API_ROUTES = {
-    getAllMovimientosInventario: `${SERVER_URL}/InventoryMovement/findAll`,
-    getAllMaterial: `${SERVER_URL}/Material?select=*`,
-    getAllUsuarios: `${SERVER_URL}/User?select=*`,
+    getAllMovimientosInventario: `${SERVER_URL}/InventoryMovement`,
+    getAllMaterial: `${SERVER_URL}/Material`,
+    getAllUser: `${SERVER_URL}/User`,
 
     agregarMovimientoInventario: `${SERVER_URL}/createUser`,
 

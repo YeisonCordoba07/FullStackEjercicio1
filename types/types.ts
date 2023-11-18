@@ -17,9 +17,17 @@ export interface Material{
     userId: string;
 }
 
-export interface MovimientosInventario{
+export interface MaterialQuery{
+    material: Material[];
+}
+
+export interface User{
     id: string;
     emailVerified: Date;
     email: number;
     roleId: string;
+}
+
+export interface UserQuery{
+    user: User[];
 }

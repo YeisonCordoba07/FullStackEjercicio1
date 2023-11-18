@@ -1,4 +1,4 @@
-import { MovimientoInventario } from "@/types/types";
+import { Material, MovimientoInventario } from "@/types/types";
 import useSWR from "swr";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 
@@ -7,35 +7,41 @@ import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 //const isLoading = "";
 
 const GestionDeInventarios = () => {
-    const { data, isLoading } = useSWR<MovimientoInventario[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
-    console.log(data);
-    return (
-        <main className="flex p-10 flex-col items-center gap-10">
+  const { data, isLoading } = useSWR<MovimientoInventario[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
+  console.log(data);
+  //const dataMovimiento = data;
 
-            <h1>Gestion De Inventarios</h1>
+  //const { data, isLoading } = useSWR<Material[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
 
-            {/* Div para Selector y boton */}
-            <div className="flex justify-between">
+  //const dataMaterial = data;
 
-            </div>
+  return (
+    <main className="flex p-10 flex-col items-center gap-10">
+
+      <h1>Gestion De Inventarios</h1>
+
+      {/* Div para Selector y boton */}
+      <div className="flex justify-between">
+
+      </div>
 
 
-            {/* TABLA */}
-            <section className='flex justify-center'>
+      {/* TABLA */}
+      <section className='flex justify-center'>
         <table cellSpacing='0'>
           <thead>
             <tr>
-              <th>columna1</th>
-              <th>columna2</th>
-              <th>columna3</th>
-              <th>columna4</th>
-              <th>columna5</th>
+              <th>Id M</th>
+              <th>Fecha</th>
+              <th>Numero entradas</th>
+              <th>Numero salidas</th>
+              <th>Persona</th>
             </tr>
           </thead>
           <tbody>
 
             {isLoading === false &&
-              data?.map((movimiento) => {
+              data?.movimiento?.map((movimiento) => {
                 return (
                   <tr key={movimiento.id}>
                     <td>{movimiento.id}</td>
@@ -46,26 +52,26 @@ const GestionDeInventarios = () => {
                   </tr>
                 );
               })}
-              
+
           </tbody>
         </table>
       </section>
 
 
-            <div className="flex flex-col gap-10">
-                <div>
-                    <h2>25 unidades</h2>
-                    <span>Saldo actual</span>
-                </div>
+      <div className="flex flex-col gap-10">
+        <div>
+          <h2>25 unidades</h2>
+          <span>Saldo actual</span>
+        </div>
 
 
-                {/* GRAFICA */}
+        {/* GRAFICA */}
 
 
 
-            </div>
-        </main>
-    );
+      </div>
+    </main>
+  );
 };
 
 export default GestionDeInventarios;
