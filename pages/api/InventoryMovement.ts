@@ -1,7 +1,7 @@
-import { PrismaClient, InventoryMovement } from '@prisma/client'
+import prisma from '@/service/prisma';
+import { InventoryMovement } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const prisma = new PrismaClient();
 
 type Data = {
   movimiento: InventoryMovement[];
