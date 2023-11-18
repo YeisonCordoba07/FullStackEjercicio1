@@ -7,7 +7,7 @@ interface EntradasLayout{
 
 const Layout = ({children}:EntradasLayout) => {
     return(
-        <main>
+        <main className="flex">
             <Sidebar />
             {children}
             {/*<ToastContainer/>*/}

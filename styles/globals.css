@@ -11,7 +11,9 @@
     font-weight: 400;
     line-height: 22px;
 }
-
+h1{
+    @apply text-4xl;
+}
 h2{
     @apply text-2xl;
 }
@@ -19,4 +21,21 @@ h2{
 .debug{
     background-color: rgb(255, 168, 168);
     border: 1px solid red;
+}
+
+
+table{
+    @apply text-left border border-separate rounded border-slate-200;
+}
+
+th{
+    @apply h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-100;
+}
+
+tr{
+    @apply transition-colors duration-300 hover:bg-slate-50;
+}
+
+td{
+    @apply h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500;
 }
