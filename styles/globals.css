@@ -39,3 +39,11 @@ tr{
 td{
     @apply h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500;
 }
+
+label{
+    @apply flex flex-col;
+}
+
+input, select{
+    @apply border border-gray-300 px-2 py-1 rounded-lg focus:outline-blue-400;
+}
