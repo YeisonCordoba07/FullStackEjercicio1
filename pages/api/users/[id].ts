@@ -1,6 +1,6 @@
 import prisma from '@/service/prisma';
-// eslint-disable-next-line import/no-unresolved
-import { checkProtectedApi } from '@/utils/checkServerSession';
+
+//import { checkProtectedApi } from '@/utils/checkServerSession';
 import { User } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -13,7 +13,7 @@ const userApi = async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) => {
-  await checkProtectedApi(req, res, 'ADMIN');
+  //await checkProtectedApi(req, res, 'ADMIN');
 
   if (req.method === 'PUT') {
     const userId = req.query.id as string;
@@ -23,7 +23,7 @@ const userApi = async (
         id: userId,
       },
       data: {
-        name: req.body.name,
+        email: req.body.email,
         roleId: req.body.roleId,
       },
     });

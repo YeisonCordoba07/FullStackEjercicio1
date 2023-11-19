@@ -9,7 +9,7 @@ const API_ROUTES = {
 
     agregarMaterial: `${SERVER_URL}/crearMaterial`,
     
-    actualizarUsuario: `${SERVER_URL}/createUser`,
+    actualizarUsuario: `${SERVER_URL}/users`,
 };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());

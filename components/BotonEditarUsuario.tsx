@@ -13,6 +13,7 @@ interface EntradasBotonEditarUsuario {
 
 const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario) => {
 
+    console.log("Usuario editar", user);
 
     const [informacionUsuario, setInformacionUsuario] = useState({
         email: "",
@@ -25,22 +26,21 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
         e.preventDefault();
         //console.log(nuevoUsuario);
         //setEditLoading(true);
-        if (informacionUsuario.email !== user.email ||
-            informacionUsuario.roleId !== user.roleId) {
+
             try {
                 await axios.request({
                     method: "PUT",
                     url: `${API_ROUTES.actualizarUsuario}/${user.id}`,
                     data: { email: informacionUsuario.email, roleId: informacionUsuario.roleId },
                 });
-                await mutate(API_ROUTES.actualizarUsuario);// REVISAR
+                //await mutate(API_ROUTES.actualizarUsuario);// REVISAR
                 //toast.success("Exito actualizando el usuario");
 
 
             } catch (error) {
                 //toast.error("No se puedo crear el usuario");
             }
-        }
+        
 
         setOpen(false);
         //setEditLoading(false);
@@ -57,10 +57,9 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                     <span>Correo usuario</span>
                     <input
                         value={informacionUsuario.email}
-                        //defaultValue={user.email}
                         name="correo-usuario"
-                        type="text"
-                        placeholder="ejemplo@gmail.com"
+                        type="email"
+                        placeholder={user.email}
                         required
                         onChange={(e) => {
                             setInformacionUsuario({ ...informacionUsuario, email: e.target.value })
@@ -72,9 +71,7 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                     <span>Nombre Material</span>
                     <select
                         value={informacionUsuario.roleId}
-                        //defaultValue={user.roleId}
                         name="rol-usuario"
-                        placeholder="1"
                         required
                         onChange={(e) => {
                             setInformacionUsuario({ ...informacionUsuario, roleId: e.target.value })
@@ -88,6 +85,13 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                                 </option>
                             );
                         })*/}
+
+                        <option value={1} >
+                            ADMIN
+                        </option>
+                        <option value={2} >
+                            USER
+                        </option>
                     </select>
                 </label>
 
