@@ -24,7 +24,7 @@ export interface MaterialQuery{
 export interface User{
     id: string;
     emailVerified: Date;
-    email: number;
+    email: string;
     roleId: string;
 }
 

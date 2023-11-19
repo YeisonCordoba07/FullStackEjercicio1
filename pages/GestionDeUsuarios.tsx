@@ -1,10 +1,16 @@
+import { AuxEditarUsuario } from "@/components/AuxEditarUsuario";
+import { BotonEditarUsuario } from "@/components/BotonEditarUsuario";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { User } from "@/types/types";
+import { useState } from "react";
 import useSWR from "swr";
 
 const GestionDeUsuarios = () => {
 
     const { data, isLoading } = useSWR<User[]>(API_ROUTES.getAllUser, fetcher);
+
+    const [openEditarUsuario, setOpenEditarUsurio] = useState(false);
+
     return (
         <main className="flex p-10 flex-col items-center gap-10">
 
@@ -25,6 +31,7 @@ const GestionDeUsuarios = () => {
               <th>Fecha creación</th>
               <th>Correo</th>
               <th>Rol</th>
+              <th>Editar</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +44,7 @@ const GestionDeUsuarios = () => {
                     <td>{user.emailVerified}</td>
                     <td>{user.email}</td>
                     <td>{user.roleId}</td>
+                    <td><AuxEditarUsuario user={user}/></td>
                   </tr>
                 );
               })}
@@ -44,6 +52,8 @@ const GestionDeUsuarios = () => {
           </tbody>
         </table>
       </section>
+
+      <BotonEditarUsuario open={openEditarUsuario} setOpen={setOpenEditarUsurio} user={data?.user[0]}/>
 
         </main>
     );
