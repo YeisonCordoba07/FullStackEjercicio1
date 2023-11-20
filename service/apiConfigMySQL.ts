@@ -7,7 +7,7 @@ const API_ROUTES = {
 
     agregarMovimientoInventario: `${SERVER_URL}/createUser`,
 
-    agregarMaterial: `${SERVER_URL}/crearMaterial`,
+    crearMaterial: `${SERVER_URL}/materials`,
     
     actualizarUsuario: `${SERVER_URL}/users`,
 };

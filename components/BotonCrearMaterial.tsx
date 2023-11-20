@@ -20,18 +20,19 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
       });
 
 
-    const submitForm = async (e: SyntheticEvent) =>{
+    const crearMaterial = async (e: SyntheticEvent) =>{
         e.preventDefault();
         //console.log(nuevoUsuario);
     
         const quantityNumero = parseInt(nuevoMaterial.quantity, 10);
+
         try{
             await axios.request({
                 method: "POST",
-                url: `${API_ROUTES.agregarMaterial}`,
+                url: `${API_ROUTES.crearMaterial}`,
                 data:{...nuevoMaterial, quantity: quantityNumero},
             });
-            await mutate(API_ROUTES.agregarMaterial);
+            await mutate(API_ROUTES.crearMaterial);
             //toast.success("Exito creando el usuario");
     
     
@@ -46,7 +47,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
     return(
         <DialogoMUI open={open} onClose={() => { setOpen(false) }} titulo={"Crear usuario"}>
 
-        <form action="" className="gap-3 flex flex-col" onSubmit={submitForm}>
+        <form action="" className="gap-3 flex flex-col" onSubmit={crearMaterial}>
 
             <label htmlFor="">
                 <span>Id Material</span>
