@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import prisma from '@/service/prisma';
+import supabase from '@/supabaseConfig';
 import { Material } from '@/types/types';
 import type { NextApiRequest, NextApiResponse } from 'next'
 

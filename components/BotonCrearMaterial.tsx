@@ -19,6 +19,13 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
         userId: "",
       });
 
+      const commonHeaders = {
+        'Content-Type': 'application/json',
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5a2hxd3JtcG5udHlvdXNxdXNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDAxOTczNjgsImV4cCI6MjAxNTc3MzM2OH0.GC_BuTqR5dMjbtEK-HOGVyfQlzyA7XewZwjP_ylEkrc',
+        'Authorization':  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5a2hxd3JtcG5udHlvdXNxdXNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDAxOTczNjgsImV4cCI6MjAxNTc3MzM2OH0.GC_BuTqR5dMjbtEK-HOGVyfQlzyA7XewZwjP_ylEkrc',
+        'Prefer': 'return=minimal',
+        // Puedes agregar otros encabezados necesarios aquí
+      };
 
     const crearMaterial = async (e: SyntheticEvent) =>{
         e.preventDefault();
@@ -30,6 +37,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
             await axios.request({
                 method: "POST",
                 url: `${API_ROUTES.crearMaterial}`,
+                headers:commonHeaders, 
                 data:{...nuevoMaterial, quantity: quantityNumero},
             });
             await mutate(API_ROUTES.crearMaterial);
