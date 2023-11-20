@@ -1,4 +1,4 @@
-import { Material, MovimientoInventario } from "@/types/types";
+import { Material, InventoryMovement } from "@/types/types";
 import useSWR from "swr";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 
@@ -7,7 +7,7 @@ import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 //const isLoading = "";
 
 const GestionDeInventarios = () => {
-  const { data, isLoading } = useSWR<MovimientoInventario[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
+  const { data, isLoading } = useSWR<InventoryMovement[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
   console.log(data);
   //const dataMovimiento = data;
 

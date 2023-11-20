@@ -1,4 +1,4 @@
-export interface MovimientoInventario{
+export interface InventoryMovement{
     id: string;
     movementType: string;
     quantity: number;
@@ -6,8 +6,8 @@ export interface MovimientoInventario{
 
 }
 
-export interface MovimientoInventarioQuery{
-    movimiento: MovimientoInventario[];
+export interface InventoryMovementQuery{
+    movement: InventoryMovement[];
 }
 
 export interface Material{
