@@ -1,6 +1,6 @@
-import { Material, InventoryMovement } from "@/types/types";
 import useSWR from "swr";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
+import { InventoryMovement } from "@prisma/client";
 
 
 

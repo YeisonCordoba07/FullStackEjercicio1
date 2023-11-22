@@ -3,8 +3,10 @@ import { DialogoMUI } from "@/components/DialogoMUI";
 import { API_ROUTES } from "@/service/apiConfigMySQL";
 //import { mutate } from "swr";
 import axios from "axios";
-import { User } from "@/types/types";
+
 import { mutate } from "swr";
+import { User } from "@prisma/client";
+import { useGetRoles } from "@/hooks/useGetRole";
 
 interface EntradasBotonEditarUsuario {
     open: boolean;
@@ -48,7 +50,7 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
         //setEditLoading(false);
     };
 
-
+    const {roles, rolesLoading} = useGetRoles();
 
     return (
         <DialogoMUI open={open} onClose={() => { setOpen(false) }} titulo={"Crear usuario"}>
@@ -61,7 +63,7 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                         value={informacionUsuario.email}
                         name="correo-usuario"
                         type="email"
-                        placeholder={user.email}
+                        placeholder={user.email ?? ""}
                         required
                         onChange={(e) => {
                             setInformacionUsuario({ ...informacionUsuario, email: e.target.value })
@@ -80,20 +82,15 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                         }}
                     >
                         <option disabled>Seleccione un rol</option>
-                        {/*roles?.map((role) => {
+                        {roles?.map((role) => {
                             return (
                                 <option value={role.id} key={role.id}>
                                     {role.name}
                                 </option>
                             );
-                        })*/}
+                        })}
 
-                        <option value={1} >
-                            ADMIN
-                        </option>
-                        <option value={2} >
-                            USER
-                        </option>
+
                     </select>
                 </label>
 

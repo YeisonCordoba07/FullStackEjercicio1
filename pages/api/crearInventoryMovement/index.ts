@@ -1,5 +1,6 @@
 import prisma from "@/service/prisma";
-import { InventoryMovement } from "@/types/types";
+import { InventoryMovement } from "@prisma/client";
+
 
 //import { checkProtectedApi } from '@/utils/checkServerSession';
 

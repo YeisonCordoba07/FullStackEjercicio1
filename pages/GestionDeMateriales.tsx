@@ -1,7 +1,8 @@
 import { BotonCrearMaterial } from "@/components/BotonCrearMaterial";
 import { PrivateComponent } from "@/components/PrivateComponent";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
-import { Material } from "@/types/types";
+import { Material } from "@prisma/client";
+
 import { useState } from "react";
 import useSWR from "swr";
 

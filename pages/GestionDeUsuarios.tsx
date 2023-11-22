@@ -2,7 +2,8 @@ import { AuxEditarUsuario } from "@/components/AuxEditarUsuario";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useGetRoles } from "@/hooks/useGetRole";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
-import { User } from "@/types/types";
+import { User } from "@prisma/client";
+
 
 
 
