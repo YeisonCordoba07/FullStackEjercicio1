@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { mutate } from "swr";
 import { User } from "@prisma/client";
-import { useGetRoles } from "@/hooks/useGetRole";
+import { refetchRoles, useGetRoles } from "@/hooks/useGetRole";
 
 interface EntradasBotonEditarUsuario {
     open: boolean;
@@ -37,7 +37,7 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                 data: { email: informacionUsuario.email, roleId: informacionUsuario.roleId },
             });
             await mutate(API_ROUTES.actualizarUsuario);// REVISAR
-            //await refetchUsers();
+            //await refetchRoles();
             //toast.success("Exito actualizando el usuario");
 
 
