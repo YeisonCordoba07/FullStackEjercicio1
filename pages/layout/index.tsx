@@ -10,6 +10,8 @@ interface EntradasLayout{
 const Layout = ({children}:EntradasLayout) => {
     const {data, status} = useSession();
 
+    console.log("ROLE: ", data?.user.role);
+
     if (status === "loading"){
         return (<div>Cargando...</div>);
     }

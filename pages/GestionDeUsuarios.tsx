@@ -6,6 +6,7 @@ import useSWR from "swr";
 
 const GestionDeUsuarios = () => {
 
+
     const { data, isLoading } = useSWR<User[]>(API_ROUTES.getAllUser, fetcher);
 
 
