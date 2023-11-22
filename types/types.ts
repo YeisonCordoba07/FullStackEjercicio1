@@ -1,3 +1,5 @@
+import { Role } from "@prisma/client";
+
 export interface InventoryMovement{
     id: string;
     movementType: string;
@@ -31,3 +33,7 @@ export interface User{
 export interface UserQuery{
     user: User[];
 }
+
+export interface RolesQuery {
+    roles: Role[];
+  }

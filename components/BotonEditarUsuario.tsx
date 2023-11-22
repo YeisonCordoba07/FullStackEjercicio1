@@ -4,6 +4,7 @@ import { API_ROUTES } from "@/service/apiConfigMySQL";
 //import { mutate } from "swr";
 import axios from "axios";
 import { User } from "@/types/types";
+import { mutate } from "swr";
 
 interface EntradasBotonEditarUsuario {
     open: boolean;
@@ -27,20 +28,21 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
         //console.log(nuevoUsuario);
         //setEditLoading(true);
 
-            try {
-                await axios.request({
-                    method: "PUT",
-                    url: `${API_ROUTES.actualizarUsuario}/${user.id}`,
-                    data: { email: informacionUsuario.email, roleId: informacionUsuario.roleId },
-                });
-                //await mutate(API_ROUTES.actualizarUsuario);// REVISAR
-                //toast.success("Exito actualizando el usuario");
+        try {
+            await axios.request({
+                method: "PUT",
+                url: `${API_ROUTES.actualizarUsuario}/${user.id}`,
+                data: { email: informacionUsuario.email, roleId: informacionUsuario.roleId },
+            });
+            await mutate(API_ROUTES.actualizarUsuario);// REVISAR
+            //await refetchUsers();
+            //toast.success("Exito actualizando el usuario");
 
 
-            } catch (error) {
-                //toast.error("No se puedo crear el usuario");
-            }
-        
+        } catch (error) {
+            //toast.error("No se puedo crear el usuario");
+        }
+
 
         setOpen(false);
         //setEditLoading(false);

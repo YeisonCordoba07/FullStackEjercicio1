@@ -1,6 +1,6 @@
 import { AuxEditarUsuario } from "@/components/AuxEditarUsuario";
-import { PrivateRoute } from "@/components/PrivateRoute";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { useGetRoles } from "@/hooks/useGetRole";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { User } from "@/types/types";
 
@@ -12,6 +12,7 @@ const GestionDeUsuarios = () => {
 
 
     const { data, isLoading } = useSWR<User[]>(API_ROUTES.getAllUser, fetcher);
+    const {roles, rolesLoading} = useGetRoles();
 
 
     return (
@@ -48,7 +49,7 @@ const GestionDeUsuarios = () => {
                     <td>{user.id}</td>
                     <td>{user.emailVerified}</td>
                     <td>{user.email}</td>
-                    <td>{user.roleId}</td>
+                    <td>{roles?.find((el) => el.id === user.roleId)?.name ?? ''}</td>
                     <td><AuxEditarUsuario user={user}/></td>
                   </tr>
                 );

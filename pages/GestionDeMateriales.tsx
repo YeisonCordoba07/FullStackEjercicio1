@@ -1,5 +1,4 @@
 import { BotonCrearMaterial } from "@/components/BotonCrearMaterial";
-import { BotonEnlace } from "@/components/BotonEnlace";
 import { PrivateComponent } from "@/components/PrivateComponent";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { Material } from "@/types/types";
