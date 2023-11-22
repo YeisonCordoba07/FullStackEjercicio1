@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
 import { DialogoMUI } from "@/components/DialogoMUI";
 import { API_ROUTES } from "@/service/apiConfigMySQL";
-import { mutate } from "swr";
+//import { mutate } from "swr";
 import axios from "axios";
 import { User } from "@/types/types";
 
@@ -13,7 +13,7 @@ interface EntradasBotonEditarUsuario {
 
 const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario) => {
 
-    console.log("Usuario editar", user);
+    //console.log("Usuario editar", user);
 
     const [informacionUsuario, setInformacionUsuario] = useState({
         email: "",

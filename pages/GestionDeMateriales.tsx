@@ -1,5 +1,6 @@
 import { BotonCrearMaterial } from "@/components/BotonCrearMaterial";
 import { BotonEnlace } from "@/components/BotonEnlace";
+import { PrivateComponent } from "@/components/PrivateComponent";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { Material } from "@/types/types";
 import { useState } from "react";
@@ -7,28 +8,33 @@ import useSWR from "swr";
 
 const GestionDeMateriales = () => {
 
-    const { data, isLoading } = useSWR<Material[]>(API_ROUTES.getAllMaterial, fetcher);
+  const { data, isLoading } = useSWR<Material[]>(API_ROUTES.getAllMaterial, fetcher);
 
-    const [openCrearMaterial, setOpenCrearMaterial] = useState(false);
+  const [openCrearMaterial, setOpenCrearMaterial] = useState(false);
 
-    return (
-        <main className="flex p-10 flex-col items-center gap-10">
+  return (
+    <main className="flex p-10 flex-col items-center gap-10">
 
-            <h1>Gestion De Materiales</h1>
+      <h1>Gestion De Materiales</h1>
 
-            {/*boton */}
-            <div className="flex justify-between">
-              <button
-              onClick={() =>{setOpenCrearMaterial(true)}}
-              className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-              >Crear Material</button>
+      {/*boton */}
+      <PrivateComponent roleName="ADMIN">
+      <div className="flex justify-between">
+
+          <button
+            onClick={() => { setOpenCrearMaterial(true) }}
+            className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+          >Crear Material</button>
 
 
-            </div>
 
 
-            {/* TABLA */}
-            <section className='flex justify-center'>
+      </div>
+      </PrivateComponent>
+
+
+      {/* TABLA */}
+      <section className='flex justify-center'>
         <table cellSpacing='0'>
           <thead>
             <tr>
@@ -56,10 +62,10 @@ const GestionDeMateriales = () => {
         </table>
       </section>
       <BotonCrearMaterial open={openCrearMaterial}
-      setOpen={setOpenCrearMaterial}/>
+        setOpen={setOpenCrearMaterial} />
 
-        </main>
-    );
+    </main>
+  );
 }
 
 export default GestionDeMateriales;

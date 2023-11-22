@@ -2,6 +2,8 @@ import { AuxEditarUsuario } from "@/components/AuxEditarUsuario";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { User } from "@/types/types";
 
+
+
 import useSWR from "swr";
 
 const GestionDeUsuarios = () => {

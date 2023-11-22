@@ -1,5 +1,4 @@
 import { Sidebar } from "@/components/Sidebar";
-import { dividerClasses } from "@mui/material";
 import { useSession } from "next-auth/react";
 
 
