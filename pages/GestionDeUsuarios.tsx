@@ -1,4 +1,6 @@
 import { AuxEditarUsuario } from "@/components/AuxEditarUsuario";
+import { PrivateRoute } from "@/components/PrivateRoute";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { User } from "@/types/types";
 
@@ -13,6 +15,8 @@ const GestionDeUsuarios = () => {
 
 
     return (
+
+      <ProtectedRoute roleName="ADMIN">
         <main className="flex p-10 flex-col items-center gap-10">
 
             <h1>Gestion De Usuarios</h1>
@@ -57,6 +61,7 @@ const GestionDeUsuarios = () => {
 
 
         </main>
+        </ProtectedRoute>
     );
 }
 
