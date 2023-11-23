@@ -24,6 +24,7 @@ const materialApi = async (
           movementType: req.body.movementType,
           quantity: req.body.quantity,
           userId: req.body.userId,
+          materialId: req.body.materialId,
          
         },
       });

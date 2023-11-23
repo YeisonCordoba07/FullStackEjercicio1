@@ -17,7 +17,7 @@ const Sidebar = () => {
             width={300}
             alt="Foto de perfil"
           />
-          <h2>Nombre del usuario</h2>
+          <h2>{data?.user?.name}</h2>
         </div>
 
         {/* Div para Botones  */}

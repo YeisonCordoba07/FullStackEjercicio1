@@ -5,7 +5,7 @@ const API_ROUTES = {
     getAllMaterial: `${SERVER_URL}/Material`,
     getAllUser: `${SERVER_URL}/User`,
 
-    crearInventoryMovement: `${SERVER_URL}/createUser`,
+    crearInventoryMovement: `${SERVER_URL}/crearInventoryMovement`,
 
     crearMaterial: `${SERVER_URL}/crearMaterial`,
     

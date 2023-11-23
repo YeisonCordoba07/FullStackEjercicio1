@@ -3,6 +3,8 @@ import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { InventoryMovement, Material } from "@prisma/client";
 import { useGetUsers } from "@/hooks/useGetUser";
 import { useGetMaterials } from "@/hooks/useGetMaterials";
+import { BotonCrearMovimiento } from "@/components/BotonCrearMovimiento";
+import { useState } from "react";
 
 
 
@@ -11,8 +13,9 @@ import { useGetMaterials } from "@/hooks/useGetMaterials";
 const GestionDeInventarios = () => {
   const { data, isLoading } = useSWR<InventoryMovement[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
 
-  const {user, userLoading} = useGetUsers();
-  const {materials, materialsLoading} = useGetMaterials();
+  const { user, userLoading } = useGetUsers();
+  const { materials, materialsLoading } = useGetMaterials();
+  const [openCrearMovimiento, setOpenCrearMovimiento] = useState(false);
 
   return (
     <main className="flex p-10 flex-col items-center gap-10">
@@ -20,7 +23,34 @@ const GestionDeInventarios = () => {
       <h1>Gestion De Inventarios</h1>
 
       {/* Div para Selector y boton */}
-      <div className="flex justify-between">
+      <div className="flex justify-between debug w-full">
+        <label htmlFor="seleccionar-material">
+          <span>Nombre Material</span>
+          <select
+
+            name="rol-usuario"
+            required
+            onChange={() => {
+              
+            }}
+          >
+            <option disabled>Seleccione un rol</option>
+            {materials?.map((material) => {
+              return (
+                <option value={material.id} key={material.id}>
+                  {material.name}
+                </option>
+              );
+            })}
+
+
+          </select>
+        </label>
+
+        <button
+            onClick={() => {setOpenCrearMovimiento(true) }}
+            className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+          >Crear Movimiento</button>
 
       </div>
 
@@ -40,7 +70,7 @@ const GestionDeInventarios = () => {
           <tbody>
 
             {isLoading === false &&
-              data?.movimiento?.map((movimiento : InventoryMovement) => {
+              data?.movimiento?.map((movimiento: InventoryMovement) => {
                 return (
                   <tr key={movimiento.id}>
                     <td>{movimiento.id}</td>
@@ -69,6 +99,7 @@ const GestionDeInventarios = () => {
 
 
       </div>
+      <BotonCrearMovimiento open={openCrearMovimiento} setOpen={setOpenCrearMovimiento}/>
     </main>
   );
 };
