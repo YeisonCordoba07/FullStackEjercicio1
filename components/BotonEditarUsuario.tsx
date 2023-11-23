@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { mutate } from "swr";
 import { User } from "@prisma/client";
-import { refetchRoles, useGetRoles } from "@/hooks/useGetRole";
+import { useGetRoles } from "@/hooks/useGetRole";
 
 interface EntradasBotonEditarUsuario {
     open: boolean;

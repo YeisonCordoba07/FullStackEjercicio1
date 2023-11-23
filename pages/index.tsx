@@ -2,8 +2,7 @@ import { useSession, signIn } from "next-auth/react";
 
 
 const Home = () => {
-  const { data, status } = useSession();
-  console.log(data);
+  const { status } = useSession();
   return (
     <main className="h-screen w-full flex flex-col justify-center items-center gap-5">
       <h1>Gestion de inventario</h1>

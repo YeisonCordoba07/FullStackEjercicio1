@@ -10,8 +10,10 @@ const API_ROUTES = {
     crearMaterial: `${SERVER_URL}/crearMaterial`,
     
     actualizarUsuario: `${SERVER_URL}/users`,
-
+    
     roles:`${SERVER_URL}/Roles`,
+
+    getUser:`${SERVER_URL}/users`,
 
 
 };

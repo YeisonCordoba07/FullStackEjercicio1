@@ -1,6 +1,8 @@
 import useSWR from "swr";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
-import { InventoryMovement } from "@prisma/client";
+import { InventoryMovement, Material } from "@prisma/client";
+import { useGetUsers } from "@/hooks/useGetUser";
+import { useGetMaterials } from "@/hooks/useGetMaterials";
 
 
 
@@ -8,12 +10,9 @@ import { InventoryMovement } from "@prisma/client";
 
 const GestionDeInventarios = () => {
   const { data, isLoading } = useSWR<InventoryMovement[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
-  console.log(data);
-  //const dataMovimiento = data;
 
-  //const { data, isLoading } = useSWR<Material[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
-
-  //const dataMaterial = data;
+  const {user, userLoading} = useGetUsers();
+  const {materials, materialsLoading} = useGetMaterials();
 
   return (
     <main className="flex p-10 flex-col items-center gap-10">
@@ -31,24 +30,24 @@ const GestionDeInventarios = () => {
         <table cellSpacing='0'>
           <thead>
             <tr>
-              <th>Id M</th>
-              <th>Fecha</th>
-              <th>Numero entradas</th>
+              <th>Id Movimiento (inv)</th>
+              <th>Fecha (material)</th>
+              <th>Numero entradas (inv)</th>
               <th>Numero salidas</th>
-              <th>Persona</th>
+              <th>Persona (user)</th>
             </tr>
           </thead>
           <tbody>
 
             {isLoading === false &&
-              data?.movimiento?.map((movimiento) => {
+              data?.movimiento?.map((movimiento : InventoryMovement) => {
                 return (
                   <tr key={movimiento.id}>
                     <td>{movimiento.id}</td>
-                    <td>{movimiento.id}</td>
+                    <td>{materialsLoading ? ("Cargando...") : (materials?.find(material => material.id === movimiento.materialId)?.updatedAt.toString()) ?? ""}</td>
                     <td>{movimiento.quantity}</td>
                     <td>{movimiento.userId}</td>
-                    <td>{movimiento.userId}</td>
+                    <td>{userLoading ? ("Cargando...") : (user?.find(user => user.id === movimiento.userId)?.name)}</td>
                   </tr>
                 );
               })}

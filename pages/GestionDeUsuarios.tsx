@@ -44,11 +44,11 @@ const GestionDeUsuarios = () => {
           <tbody>
 
             {isLoading === false &&
-              data?.user?.map((user) => {
+              data?.user?.map((user: User) => {
                 return (
                   <tr key={user.id}>
                     <td>{user.id}</td>
-                    <td>{user.emailVerified}</td>
+                    <td>{user.emailVerified ?? ""}</td>
                     <td>{user.email}</td>
                     <td>{roles?.find((el) => el.id === user.roleId)?.name ?? ''}</td>
                     <td><AuxEditarUsuario user={user}/></td>

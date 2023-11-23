@@ -1,7 +1,9 @@
 import { BotonCrearMaterial } from "@/components/BotonCrearMaterial";
 import { PrivateComponent } from "@/components/PrivateComponent";
+import { useGetUsers } from "@/hooks/useGetUser";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { Material } from "@prisma/client";
+
 
 import { useState } from "react";
 import useSWR from "swr";
@@ -11,6 +13,9 @@ const GestionDeMateriales = () => {
   const { data, isLoading } = useSWR<Material[]>(API_ROUTES.getAllMaterial, fetcher);
 
   const [openCrearMaterial, setOpenCrearMaterial] = useState(false);
+
+  const {user, userLoading} = useGetUsers();
+
 
   return (
     <main className="flex p-10 flex-col items-center gap-10">
@@ -38,22 +43,22 @@ const GestionDeMateriales = () => {
         <table cellSpacing='0'>
           <thead>
             <tr>
-              <th>Id M</th>
+              <th>Id Material</th>
               <th>Nombre</th>
               <th>Cantidad</th>
-              <th>Persona</th>
+              <th>Persona (User)</th>
             </tr>
           </thead>
           <tbody>
 
             {isLoading === false &&
-              data?.material?.map((material) => {
+              data?.material?.map((material: Material) => {
                 return (
                   <tr key={material.id}>
                     <td>{material.id}</td>
                     <td>{material.name}</td>
                     <td>{material.quantity}</td>
-                    <td>{material.userId}</td>
+                    <td>{userLoading ? ("Cargando...") : (user?.find(usuario => usuario.id === material.userId)?.name)}</td>
                   </tr>
                 );
               })}
