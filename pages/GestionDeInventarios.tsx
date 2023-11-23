@@ -23,7 +23,7 @@ const GestionDeInventarios = () => {
       <h1>Gestion De Inventarios</h1>
 
       {/* Div para Selector y boton */}
-      <div className="flex justify-between debug w-full">
+      <div className="flex justify-between w-full">
         <label htmlFor="seleccionar-material">
           <span>Nombre Material</span>
           <select
