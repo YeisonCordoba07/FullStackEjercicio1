@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 
 import { BotonEditarUsuario } from '@/components/BotonEditarUsuario';
-import { User } from '@/types/types';
+import { User } from '@prisma/client';
+
 
 interface UserActionsProps {
   user: User;

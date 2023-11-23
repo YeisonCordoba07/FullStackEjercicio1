@@ -1,53 +1,64 @@
 import { BotonCrearMaterial } from "@/components/BotonCrearMaterial";
-import { BotonEnlace } from "@/components/BotonEnlace";
+import { PrivateComponent } from "@/components/PrivateComponent";
+import { useGetUsers } from "@/hooks/useGetUser";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
-import { Material } from "@/types/types";
+import { Material } from "@prisma/client";
+
+
 import { useState } from "react";
 import useSWR from "swr";
 
 const GestionDeMateriales = () => {
 
-    const { data, isLoading } = useSWR<Material[]>(API_ROUTES.getAllMaterial, fetcher);
+  const { data, isLoading } = useSWR<Material[]>(API_ROUTES.getAllMaterial, fetcher);
 
-    const [openCrearMaterial, setOpenCrearMaterial] = useState(false);
+  const [openCrearMaterial, setOpenCrearMaterial] = useState(false);
 
-    return (
-        <main className="flex p-10 flex-col items-center gap-10">
-
-            <h1>Gestion De Materiales</h1>
-
-            {/*boton */}
-            <div className="flex justify-between">
-              <button
-              onClick={() =>{setOpenCrearMaterial(true)}}
-              className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-              >Crear Material</button>
+  const {user, userLoading} = useGetUsers();
 
 
-            </div>
+  return (
+    <main className="flex p-10 flex-col items-center gap-10">
+
+      <h1>Gestion De Materiales</h1>
+
+      {/*boton */}
+      <PrivateComponent roleName="ADMIN">
+      <div className="flex justify-between">
+
+          <button
+            onClick={() => { setOpenCrearMaterial(true) }}
+            className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+          >Crear Material</button>
 
 
-            {/* TABLA */}
-            <section className='flex justify-center'>
+
+
+      </div>
+      </PrivateComponent>
+
+
+      {/* TABLA */}
+      <section className='flex justify-center'>
         <table cellSpacing='0'>
           <thead>
             <tr>
-              <th>Id M</th>
+              <th>Id Material</th>
               <th>Nombre</th>
               <th>Cantidad</th>
-              <th>Persona</th>
+              <th>Persona (User)</th>
             </tr>
           </thead>
           <tbody>
 
             {isLoading === false &&
-              data?.material?.map((material) => {
+              data?.material?.map((material: Material) => {
                 return (
                   <tr key={material.id}>
                     <td>{material.id}</td>
                     <td>{material.name}</td>
                     <td>{material.quantity}</td>
-                    <td>{material.userId}</td>
+                    <td>{userLoading ? ("Cargando...") : (user?.find(usuario => usuario.id === material.userId)?.name)}</td>
                   </tr>
                 );
               })}
@@ -56,10 +67,10 @@ const GestionDeMateriales = () => {
         </table>
       </section>
       <BotonCrearMaterial open={openCrearMaterial}
-      setOpen={setOpenCrearMaterial}/>
+        setOpen={setOpenCrearMaterial} />
 
-        </main>
-    );
+    </main>
+  );
 }
 
 export default GestionDeMateriales;

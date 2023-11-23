@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/Sidebar";
+import { useSession } from "next-auth/react";
 
 
 interface EntradasLayout{
@@ -6,13 +7,29 @@ interface EntradasLayout{
 }
 
 const Layout = ({children}:EntradasLayout) => {
-    return(
-        <main className="flex">
-            <Sidebar />
-            {children}
-            {/*<ToastContainer/>*/}
-        </main>
-    );
+    const {status} = useSession();
+
+    if (status === "loading"){
+        return (<div>Cargando...</div>);
+    }
+
+    if(status === "authenticated"){
+        return(
+            <main className="flex">
+                <Sidebar />
+                {children}
+                {/*<ToastContainer/>*/}
+            </main>
+        );
+    }
+    return (<PublicLayout>{children}</PublicLayout>);
+
 };
+
+const PublicLayout = ({children}: EntradasLayout) =>{
+    return(
+        <main>{children}</main>
+    );
+}
 
 export {Layout};

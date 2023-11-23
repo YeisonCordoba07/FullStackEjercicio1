@@ -1,15 +1,24 @@
 import { AuxEditarUsuario } from "@/components/AuxEditarUsuario";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { useGetRoles } from "@/hooks/useGetRole";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
-import { User } from "@/types/types";
+import { User } from "@prisma/client";
+
+
+
 
 import useSWR from "swr";
 
 const GestionDeUsuarios = () => {
 
+
     const { data, isLoading } = useSWR<User[]>(API_ROUTES.getAllUser, fetcher);
+    const {roles, rolesLoading} = useGetRoles();
 
 
     return (
+
+      <ProtectedRoute roleName="ADMIN">
         <main className="flex p-10 flex-col items-center gap-10">
 
             <h1>Gestion De Usuarios</h1>
@@ -35,13 +44,13 @@ const GestionDeUsuarios = () => {
           <tbody>
 
             {isLoading === false &&
-              data?.user?.map((user) => {
+              data?.user?.map((user: User) => {
                 return (
                   <tr key={user.id}>
                     <td>{user.id}</td>
-                    <td>{user.emailVerified}</td>
+                    <td>{user.emailVerified ?? ""}</td>
                     <td>{user.email}</td>
-                    <td>{user.roleId}</td>
+                    <td>{roles?.find((el) => el.id === user.roleId)?.name ?? ''}</td>
                     <td><AuxEditarUsuario user={user}/></td>
                   </tr>
                 );
@@ -54,6 +63,7 @@ const GestionDeUsuarios = () => {
 
 
         </main>
+        </ProtectedRoute>
     );
 }
 
