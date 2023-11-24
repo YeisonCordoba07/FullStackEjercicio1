@@ -75,8 +75,9 @@ const GestionDeInventarios = () => {
                   <tr key={movimiento.id}>
                     <td>{movimiento.id}</td>
                     <td>{materialsLoading ? ("Cargando...") : (materials?.find(material => material.id === movimiento.materialId)?.updatedAt.toString()) ?? ""}</td>
-                    <td>{movimiento.quantity}</td>
-                    <td>{movimiento.userId}</td>
+                    {movimiento.movementType==="ENTRADA" ? (<><td>{movimiento.quantity}</td>
+                    <td>-</td></>) : (<><td>-</td>
+                    <td>{movimiento.quantity}</td></>)}
                     <td>{userLoading ? ("Cargando...") : (user?.find(user => user.id === movimiento.userId)?.name)}</td>
                   </tr>
                 );
