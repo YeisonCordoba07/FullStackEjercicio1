@@ -17,7 +17,7 @@ const GestionDeInventarios = () => {
   const { materials, materialsLoading } = useGetMaterials();
   const [openCrearMovimiento, setOpenCrearMovimiento] = useState(false);
 
-  const [materialActual, setMaterialActual] = useState("");
+  const [materialActual, setMaterialActual] = useState("300");
 
   return (
     <main className="flex p-10 flex-col items-center gap-10">

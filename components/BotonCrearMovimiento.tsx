@@ -24,7 +24,6 @@ const BotonCrearMovimiento = ({
 
 
     const { data } = useSession();
-    const { user } = useGetUsers();
     const { materials } = useGetMaterials();
 
     const [nuevoMovimiento, setNuevoMovimiento] = useState({
@@ -35,14 +34,11 @@ const BotonCrearMovimiento = ({
     });
 
     //const [editLoading, setEditLoading] = useState(false);
-    //const infoUsuario = data?.user?.email;
+
     const crearMovimiento = async (e: SyntheticEvent) => {
         e.preventDefault();
 
         const quantityNumero = parseInt(nuevoMovimiento.quantity, 10);
-
-        const usuarioId = user?.find((user) => user.email === data?.user?.email)
-            ?.id;
 
         try {
             await axios.request({
@@ -51,7 +47,7 @@ const BotonCrearMovimiento = ({
                 data: {
                     ...nuevoMovimiento,
                     quantity: quantityNumero,
-                    userId: usuarioId,
+                    userId: data?.user.id,
                 },
             });
             await mutate(API_ROUTES.crearInventoryMovement);

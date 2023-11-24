@@ -15,10 +15,12 @@ export const authOptions: NextAuthOptions = {
                     id: (user as User).roleId ?? "",
                 },
             });
+
             return {
                 ...session,
                 user:{
                     ...session.user,
+                    id: (user as User).id,
                     role,
                 },
             };

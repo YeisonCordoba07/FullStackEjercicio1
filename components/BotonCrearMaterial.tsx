@@ -4,6 +4,8 @@ import { API_ROUTES } from "@/service/apiConfigMySQL";
 import { mutate } from "swr";
 import axios from "axios";
 
+import { useSession } from "next-auth/react";
+
 interface EntradasBotonCrearMaterial{
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
@@ -11,6 +13,7 @@ interface EntradasBotonCrearMaterial{
 
 const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
 
+    const { data } = useSession();
     
     const [nuevoMaterial, setNuevoMaterial] = useState({
         id: "",
@@ -26,11 +29,12 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
     
         const quantityNumero = parseInt(nuevoMaterial.quantity, 10);
 
+
         try{
             await axios.request({
                 method: "POST",
                 url: `${API_ROUTES.crearMaterial}`,
-                data:{...nuevoMaterial, quantity: quantityNumero},
+                data:{...nuevoMaterial, quantity: quantityNumero, userId: data?.user.id},
             });
             await mutate(API_ROUTES.crearMaterial);
             //toast.success("Exito creando el usuario");
@@ -91,19 +95,6 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
                 />
             </label>
 
-            <label htmlFor="">
-                <span>Creador</span>
-                <input 
-                value={nuevoMaterial.userId} 
-                onChange={(e) =>{
-                    setNuevoMaterial({...nuevoMaterial, userId: e.target.value})
-                }} 
-                name="userId"
-                type="text"
-                placeholder="1" 
-                required
-                />
-            </label>
 
             <div className="flex gap-5 justify-center items-center">
                 <button type="submit"
