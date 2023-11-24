@@ -52,7 +52,7 @@ const BotonCrearMovimiento = ({
                     userId: data?.user.id,
                 },
             });
-            await mutate(API_ROUTES.crearInventoryMovement);
+            await mutate(API_ROUTES.getAllMovimientosInventario);
             toast.success("Exito creando el movimiento");
         } catch (error) {
             toast.error("No se puedo crear el movimiento");
@@ -81,7 +81,7 @@ const BotonCrearMovimiento = ({
                 <label htmlFor="material">
                     <span>Material</span>
                     <select
-                        value={nuevoMovimiento.materialId}
+                        defaultValue={nuevoMovimiento.materialId}
                         name="material"
                         required
                         onChange={(e) => {
@@ -105,7 +105,7 @@ const BotonCrearMovimiento = ({
                 <label htmlFor="cantidad">
                     <span>Cantidad</span>
                     <input
-                        value={nuevoMovimiento.quantity}
+                        defaultValue={nuevoMovimiento.quantity}
                         name="cantidad"
                         type="number"
                         required
@@ -121,7 +121,7 @@ const BotonCrearMovimiento = ({
                 <label htmlFor="tipo-movimiento">
                     <span>Tipo de movimiento</span>
                     <select
-                        value={nuevoMovimiento.movementType}
+                        defaultValue={nuevoMovimiento.movementType}
                         name="tipo-movimiento"
                         required
                         onChange={(e) => {
@@ -148,7 +148,8 @@ const BotonCrearMovimiento = ({
                     <button
                         onClick={() => setOpen(false)}
                         className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-                        disabled={loading}>
+                        disabled={loading}
+                        type="button">
                         Cancelar
                     </button>
                 </div>

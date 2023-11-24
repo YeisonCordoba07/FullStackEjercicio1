@@ -40,7 +40,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
                 url: `${API_ROUTES.crearMaterial}`,
                 data:{...nuevoMaterial, quantity: quantityNumero, userId: data?.user.id},
             });
-            await mutate(API_ROUTES.crearMaterial);
+            await mutate(API_ROUTES.getAllMaterial);
             toast.success("Exito creando el material");
     
     
@@ -62,7 +62,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
             <label htmlFor="">
                 <span>Id Material</span>
                 <input 
-                value={nuevoMaterial.id} 
+                defaultValue={nuevoMaterial.id} 
                 onChange={(e) =>{
                     setNuevoMaterial({...nuevoMaterial, id: e.target.value})
                 }} 
@@ -76,7 +76,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
             <label htmlFor="">
                 <span>Nombre Material</span>
                 <input 
-                value={nuevoMaterial.name} 
+                defaultValue={nuevoMaterial.name} 
                 onChange={(e) =>{
                     setNuevoMaterial({...nuevoMaterial, name: e.target.value})
                 }} 
@@ -90,7 +90,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
             <label htmlFor="">
                 <span>Cantidad</span>
                 <input 
-                value={nuevoMaterial.quantity} 
+                defaultValue={nuevoMaterial.quantity} 
                 onChange={(e) =>{
                     setNuevoMaterial({...nuevoMaterial, quantity: e.target.value})
                 }} 
@@ -113,7 +113,8 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
                 <button 
                 onClick={() => setOpen(false)}
                 className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-                disabled={loading}>
+                disabled={loading}
+                type="button">
                     Cancelar
                 </button>
             </div>

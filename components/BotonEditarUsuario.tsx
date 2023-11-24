@@ -36,7 +36,7 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                 url: `${API_ROUTES.actualizarUsuario}/${user.id}`,
                 data: { email: informacionUsuario.email, roleId: informacionUsuario.roleId },
             });
-            await mutate(API_ROUTES.actualizarUsuario);// REVISAR
+            await mutate(API_ROUTES.getAllUser);// REVISAR
             //await refetchRoles();
             toast.success("Exito actualizando el usuario");
 
@@ -59,7 +59,7 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                 <label htmlFor="correo-usuario">
                     <span>Correo usuario</span>
                     <input
-                        value={informacionUsuario.email}
+                        defaultValue={informacionUsuario.email}
                         name="correo-usuario"
                         type="email"
                         placeholder={user.email ?? ""}
@@ -73,7 +73,7 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                 <label htmlFor="rol-usuario">
                     <span>Nombre Material</span>
                     <select
-                        value={informacionUsuario.roleId}
+                        defaultValue={informacionUsuario.roleId}
                         name="rol-usuario"
                         required
                         onChange={(e) => {
@@ -103,7 +103,8 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
                     <button
                         onClick={() => setOpen(false)}
                         className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-                        disabled={loading}>
+                        disabled={loading}
+                        type="button">
                         Cancelar
                     </button>
                 </div>
