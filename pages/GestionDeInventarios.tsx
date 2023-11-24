@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
-import { InventoryMovement, Material } from "@prisma/client";
+import { InventoryMovement } from "@prisma/client";
 import { useGetUsers } from "@/hooks/useGetUser";
 import { useGetMaterials } from "@/hooks/useGetMaterials";
 import { BotonCrearMovimiento } from "@/components/BotonCrearMovimiento";

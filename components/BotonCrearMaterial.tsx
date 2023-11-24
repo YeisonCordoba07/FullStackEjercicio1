@@ -5,6 +5,8 @@ import { mutate } from "swr";
 import axios from "axios";
 
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { Spinner } from "@/components/Spinner";
 
 interface EntradasBotonCrearMaterial{
     open: boolean;
@@ -22,10 +24,12 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
         userId: "",
       });
 
+    const [loading, setLoading] = useState(false);
+
 
     const crearMaterial = async (e: SyntheticEvent) =>{
         e.preventDefault();
-        //console.log(nuevoUsuario);
+        setLoading(true);
     
         const quantityNumero = parseInt(nuevoMaterial.quantity, 10);
 
@@ -37,13 +41,15 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
                 data:{...nuevoMaterial, quantity: quantityNumero, userId: data?.user.id},
             });
             await mutate(API_ROUTES.crearMaterial);
-            //toast.success("Exito creando el usuario");
+            toast.success("Exito creando el material");
     
     
         }catch (error){
-            //toast.error("No se puedo crear el usuario");
+            toast.error("No se puedo crear el material");
         }
+        setLoading(false);
         setOpen(false);
+
     };
 
 
@@ -98,14 +104,16 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
 
             <div className="flex gap-5 justify-center items-center">
                 <button type="submit"
-                    onClick={() => { }} className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200">
-                    Guardar
+                    onClick={() => { }} className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+                    disabled={loading}>{loading ? <Spinner/>: <span>Guardar</span>}
+                    
                 </button>
 
 
                 <button 
                 onClick={() => setOpen(false)}
-                className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200">
+                className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+                disabled={loading}>
                     Cancelar
                 </button>
             </div>

@@ -7,7 +7,8 @@ import axios from "axios";
 import { mutate } from "swr";
 import { User } from "@prisma/client";
 import { useGetRoles } from "@/hooks/useGetRole";
-
+import { toast } from "react-toastify";
+import { Spinner } from "@/components/Spinner";
 interface EntradasBotonEditarUsuario {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
@@ -16,19 +17,18 @@ interface EntradasBotonEditarUsuario {
 
 const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario) => {
 
-    //console.log("Usuario editar", user);
 
     const [informacionUsuario, setInformacionUsuario] = useState({
         email: "",
         roleId: "",
     });
 
-    //const [editLoading, setEditLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const actualizarUsuario = async (e: SyntheticEvent) => {
         e.preventDefault();
-        //console.log(nuevoUsuario);
-        //setEditLoading(true);
+        setLoading(true);
+
 
         try {
             await axios.request({
@@ -38,19 +38,18 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
             });
             await mutate(API_ROUTES.actualizarUsuario);// REVISAR
             //await refetchRoles();
-            //toast.success("Exito actualizando el usuario");
+            toast.success("Exito actualizando el usuario");
 
 
         } catch (error) {
-            //toast.error("No se puedo crear el usuario");
+            toast.error("No se puedo crear el usuario");
         }
 
-
+        setLoading(false);
         setOpen(false);
-        //setEditLoading(false);
     };
 
-    const {roles, rolesLoading} = useGetRoles();
+    const {roles } = useGetRoles();
 
     return (
         <DialogoMUI open={open} onClose={() => { setOpen(false) }} titulo={"Crear usuario"}>
@@ -97,14 +96,14 @@ const BotonEditarUsuario = ({ open, setOpen, user }: EntradasBotonEditarUsuario)
 
                 <div className="flex gap-5 justify-center items-center">
                     <button type="submit"
-                        onClick={() => { }} className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200">
-                        Guardar
+                        onClick={() => { }} className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"disabled={loading}>{loading ? <Spinner/>: <span>Guardar</span>}
                     </button>
 
 
                     <button
                         onClick={() => setOpen(false)}
-                        className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200">
+                        className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+                        disabled={loading}>
                         Cancelar
                     </button>
                 </div>

@@ -5,7 +5,8 @@ import axios from "axios";
 import { mutate } from "swr";
 import { useGetMaterials } from "@/hooks/useGetMaterials";
 import { useSession } from "next-auth/react";
-import { useGetUsers } from "@/hooks/useGetUser";
+import { toast } from "react-toastify";
+import { Spinner } from "@/components/Spinner";
 
 
 interface EntradasBotonCrearMovimiento {
@@ -33,11 +34,12 @@ const BotonCrearMovimiento = ({
         userId: "",
     });
 
-    //const [editLoading, setEditLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
     const crearMovimiento = async (e: SyntheticEvent) => {
         e.preventDefault();
-
+        setLoading(true);
         const quantityNumero = parseInt(nuevoMovimiento.quantity, 10);
 
         try {
@@ -51,10 +53,11 @@ const BotonCrearMovimiento = ({
                 },
             });
             await mutate(API_ROUTES.crearInventoryMovement);
-            //toast.success("Exito creando el usuario");
+            toast.success("Exito creando el movimiento");
         } catch (error) {
-            //toast.error("No se puedo crear el usuario");
+            toast.error("No se puedo crear el movimiento");
         }
+        setLoading(false);
         setOpen(false);
     };
 
@@ -139,14 +142,13 @@ const BotonCrearMovimiento = ({
                         type="submit"
                         onClick={() => { }}
                         className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-                    >
-                        Crear
+                        disabled={loading}>{loading ? <Spinner/>: <span>Crear</span>}
                     </button>
 
                     <button
                         onClick={() => setOpen(false)}
                         className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-                    >
+                        disabled={loading}>
                         Cancelar
                     </button>
                 </div>
