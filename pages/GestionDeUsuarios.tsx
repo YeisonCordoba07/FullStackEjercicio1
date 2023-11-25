@@ -13,7 +13,7 @@ const GestionDeUsuarios = () => {
 
 
     const { data, isLoading } = useSWR<User[]>(API_ROUTES.getAllUser, fetcher);
-    const {roles, rolesLoading} = useGetRoles();
+    const {roles} = useGetRoles();
 
 
     return (
