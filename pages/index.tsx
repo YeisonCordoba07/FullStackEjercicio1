@@ -7,7 +7,7 @@ const Home = () => {
     <main className="h-screen w-full flex flex-col justify-center items-center gap-5">
       <h1>Gestion de inventario</h1>
       {status === "authenticated" ? (
-        <div>Div sin clase INDEX</div>
+        <div>Bienvenidos</div>
 
       ) : (
 

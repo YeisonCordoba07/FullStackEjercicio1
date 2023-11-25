@@ -1,6 +1,6 @@
 import { Enum_RoleName } from '@prisma/client';
 import { useSession } from 'next-auth/react';
-import { PrivateRoute } from './PrivateRoute';
+import { PrivateRoute } from '@/components/PrivateRoute';
 import Link from 'next/link';
 
 interface ProtectedRouteProps {

@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
 import { DialogoMUI } from "@/components/DialogoMUI";
 import { API_ROUTES } from "@/service/apiConfigMySQL";
-//import { mutate } from "swr";
 import axios from "axios";
 
 import { mutate } from "swr";
