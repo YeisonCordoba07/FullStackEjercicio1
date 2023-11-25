@@ -6,7 +6,6 @@ import prisma from "@/service/prisma";
 import { User } from "@prisma/client";
 
 
-
 export const authOptions: NextAuthOptions = {
     callbacks:{
         async session({session, user}){

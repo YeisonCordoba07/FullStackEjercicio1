@@ -1,20 +1,17 @@
-import useSWR from "swr";
-import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
 import { InventoryMovement } from "@prisma/client";
 import { useGetUsers } from "@/hooks/useGetUser";
 import { useGetMaterials } from "@/hooks/useGetMaterials";
 import { BotonCrearMovimiento } from "@/components/BotonCrearMovimiento";
 import { useState } from "react";
+import { useGetInventaryMovements } from "@/hooks/useGetInventaryMovements";
 
 
-
-//const isLoading = "";
 
 const GestionDeInventarios = () => {
-  const { data, isLoading } = useSWR<InventoryMovement[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
-
+  //const { data, isLoading } = useSWR<InventoryMovement[]>(API_ROUTES.getAllMovimientosInventario, fetcher);
+  const{movimiento, movimientoLoading} = useGetInventaryMovements();
   const { user, userLoading } = useGetUsers();
-  const { materials, materialsLoading } = useGetMaterials();
+  const { material: materials, materialLoading: materialsLoading } = useGetMaterials();
   const [openCrearMovimiento, setOpenCrearMovimiento] = useState(false);
 
   const [materialActual, setMaterialActual] = useState("300");
@@ -71,8 +68,8 @@ const GestionDeInventarios = () => {
           </thead>
           <tbody>
 
-            {isLoading === false &&
-              data?.movimiento?.map((movimiento: InventoryMovement) => {
+            {movimientoLoading === false &&
+              movimiento?.map((movimiento: InventoryMovement) => {
                 if(materialActual === movimiento.materialId){
                                   return (
                   <tr key={movimiento.id}>

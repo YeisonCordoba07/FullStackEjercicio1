@@ -13,9 +13,9 @@ const useGetMaterials = () => {
   );
 
   return {
-    materials: data?.material,
-    materialsLoading: isLoading,
-    materialsError: error,
+    material: data?.material,
+    materialLoading: isLoading,
+    materialError: error,
   };
 };
 

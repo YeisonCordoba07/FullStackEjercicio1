@@ -14,5 +14,5 @@ export default  async function handler(
   res: NextApiResponse<Data>
 ) {
   const material = await prisma.material.findMany();
-  res.status(200).json({ material });
+  res.status(200).json({ material});
 }

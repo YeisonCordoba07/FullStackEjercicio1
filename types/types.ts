@@ -3,7 +3,7 @@ import { InventoryMovement, Material, Role, User } from "@prisma/client";
 
 
 export interface InventoryMovementQuery{
-    movement: InventoryMovement[];
+    movimiento: InventoryMovement[];
 }
 
 

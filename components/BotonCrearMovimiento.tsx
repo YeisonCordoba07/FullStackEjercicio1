@@ -18,7 +18,7 @@ const BotonCrearMovimiento = ({
   setOpen,
 }: EntradasBotonCrearMovimiento) => {
   const { data } = useSession();
-  const { materials } = useGetMaterials();
+  const { material: materials } = useGetMaterials();
 
   const [nuevoMovimiento, setNuevoMovimiento] = useState({
     movementType: "",

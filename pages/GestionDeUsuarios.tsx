@@ -1,18 +1,19 @@
 import { AuxEditarUsuario } from "@/components/AuxEditarUsuario";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useGetRoles } from "@/hooks/useGetRole";
-import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
+import { useGetUsers } from "@/hooks/useGetUser";
 import { User } from "@prisma/client";
 
 
 
 
-import useSWR from "swr";
+
 
 const GestionDeUsuarios = () => {
 
 
-    const { data, isLoading } = useSWR<User[]>(API_ROUTES.getAllUser, fetcher);
+    //const { data, isLoading } = useSWR<User[]>(API_ROUTES.getAllUser, fetcher);
+    const {user, userLoading} = useGetUsers();
     const {roles} = useGetRoles();
 
 
@@ -43,12 +44,12 @@ const GestionDeUsuarios = () => {
           </thead>
           <tbody>
 
-            {isLoading === false &&
-              data?.user?.map((user: User) => {
+            {userLoading === false &&
+              user?.map((user: User) => {
                 return (
                   <tr key={user.id}>
                     <td>{user.id}</td>
-                    <td>{user.emailVerified ?? ""}</td>
+                    <td>{user.emailVerified ? new Date(user.emailVerified).toLocaleString() : "N/A"}</td>
                     <td>{user.email}</td>
                     <td>{roles?.find((el) => el.id === user.roleId)?.name ?? ''}</td>
                     <td><AuxEditarUsuario user={user}/></td>

@@ -11,6 +11,8 @@ declare module "next-auth"{
         user:{
             image?: string;
             role: Role?;
+            id: string;
+            name: string;
         };
     }
 }
