@@ -1,5 +1,7 @@
 import { Sidebar } from "@/components/Sidebar";
 import { useSession } from "next-auth/react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 interface EntradasLayout{
@@ -17,8 +19,10 @@ const Layout = ({children}:EntradasLayout) => {
         return(
             <main className="flex">
                 <Sidebar />
+                
                 {children}
-                {/*<ToastContainer/>*/}
+                <ToastContainer/>
+
             </main>
         );
     }

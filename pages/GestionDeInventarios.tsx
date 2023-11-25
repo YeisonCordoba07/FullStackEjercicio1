@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { API_ROUTES, fetcher } from "@/service/apiConfigMySQL";
-import { InventoryMovement, Material } from "@prisma/client";
+import { InventoryMovement } from "@prisma/client";
 import { useGetUsers } from "@/hooks/useGetUser";
 import { useGetMaterials } from "@/hooks/useGetMaterials";
 import { BotonCrearMovimiento } from "@/components/BotonCrearMovimiento";
@@ -17,6 +17,8 @@ const GestionDeInventarios = () => {
   const { materials, materialsLoading } = useGetMaterials();
   const [openCrearMovimiento, setOpenCrearMovimiento] = useState(false);
 
+  const [materialActual, setMaterialActual] = useState("300");
+
   return (
     <main className="flex p-10 flex-col items-center gap-10">
 
@@ -27,12 +29,12 @@ const GestionDeInventarios = () => {
         <label htmlFor="seleccionar-material">
           <span>Nombre Material</span>
           <select
-
+            value={materialActual}
             name="rol-usuario"
             required
-            onChange={() => {
-              
-            }}
+            onChange={(e) => {
+              setMaterialActual(e.target.value)
+          }}
           >
             <option disabled>Seleccione un rol</option>
             {materials?.map((material) => {
@@ -71,15 +73,19 @@ const GestionDeInventarios = () => {
 
             {isLoading === false &&
               data?.movimiento?.map((movimiento: InventoryMovement) => {
-                return (
+                if(materialActual === movimiento.materialId){
+                                  return (
                   <tr key={movimiento.id}>
                     <td>{movimiento.id}</td>
                     <td>{materialsLoading ? ("Cargando...") : (materials?.find(material => material.id === movimiento.materialId)?.updatedAt.toString()) ?? ""}</td>
-                    <td>{movimiento.quantity}</td>
-                    <td>{movimiento.userId}</td>
+                    {movimiento.movementType==="ENTRADA" ? (<><td>{movimiento.quantity}</td>
+                    <td>-</td></>) : (<><td>-</td>
+                    <td>{movimiento.quantity}</td></>)}
                     <td>{userLoading ? ("Cargando...") : (user?.find(user => user.id === movimiento.userId)?.name)}</td>
                   </tr>
                 );
+                }
+
               })}
 
           </tbody>

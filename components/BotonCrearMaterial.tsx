@@ -4,6 +4,10 @@ import { API_ROUTES } from "@/service/apiConfigMySQL";
 import { mutate } from "swr";
 import axios from "axios";
 
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { Spinner } from "@/components/Spinner";
+
 interface EntradasBotonCrearMaterial{
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
@@ -11,6 +15,7 @@ interface EntradasBotonCrearMaterial{
 
 const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
 
+    const { data } = useSession();
     
     const [nuevoMaterial, setNuevoMaterial] = useState({
         id: "",
@@ -19,27 +24,32 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
         userId: "",
       });
 
+    const [loading, setLoading] = useState(false);
+
 
     const crearMaterial = async (e: SyntheticEvent) =>{
         e.preventDefault();
-        //console.log(nuevoUsuario);
+        setLoading(true);
     
         const quantityNumero = parseInt(nuevoMaterial.quantity, 10);
+
 
         try{
             await axios.request({
                 method: "POST",
                 url: `${API_ROUTES.crearMaterial}`,
-                data:{...nuevoMaterial, quantity: quantityNumero},
+                data:{...nuevoMaterial, quantity: quantityNumero, userId: data?.user.id},
             });
-            await mutate(API_ROUTES.crearMaterial);
-            //toast.success("Exito creando el usuario");
+            await mutate(API_ROUTES.getAllMaterial);
+            toast.success("Exito creando el material");
     
     
         }catch (error){
-            //toast.error("No se puedo crear el usuario");
+            toast.error("No se puedo crear el material");
         }
+        setLoading(false);
         setOpen(false);
+
     };
 
 
@@ -52,7 +62,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
             <label htmlFor="">
                 <span>Id Material</span>
                 <input 
-                value={nuevoMaterial.id} 
+                defaultValue={nuevoMaterial.id} 
                 onChange={(e) =>{
                     setNuevoMaterial({...nuevoMaterial, id: e.target.value})
                 }} 
@@ -66,7 +76,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
             <label htmlFor="">
                 <span>Nombre Material</span>
                 <input 
-                value={nuevoMaterial.name} 
+                defaultValue={nuevoMaterial.name} 
                 onChange={(e) =>{
                     setNuevoMaterial({...nuevoMaterial, name: e.target.value})
                 }} 
@@ -80,7 +90,7 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
             <label htmlFor="">
                 <span>Cantidad</span>
                 <input 
-                value={nuevoMaterial.quantity} 
+                defaultValue={nuevoMaterial.quantity} 
                 onChange={(e) =>{
                     setNuevoMaterial({...nuevoMaterial, quantity: e.target.value})
                 }} 
@@ -91,30 +101,20 @@ const BotonCrearMaterial = ({open, setOpen}:EntradasBotonCrearMaterial) => {
                 />
             </label>
 
-            <label htmlFor="">
-                <span>Creador</span>
-                <input 
-                value={nuevoMaterial.userId} 
-                onChange={(e) =>{
-                    setNuevoMaterial({...nuevoMaterial, userId: e.target.value})
-                }} 
-                name="userId"
-                type="text"
-                placeholder="1" 
-                required
-                />
-            </label>
 
             <div className="flex gap-5 justify-center items-center">
                 <button type="submit"
-                    onClick={() => { }} className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200">
-                    Guardar
+                    onClick={() => { }} className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+                    disabled={loading}>{loading ? <Spinner/>: <span>Guardar</span>}
+                    
                 </button>
 
 
                 <button 
                 onClick={() => setOpen(false)}
-                className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200">
+                className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
+                disabled={loading}
+                type="button">
                     Cancelar
                 </button>
             </div>

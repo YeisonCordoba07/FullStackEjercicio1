@@ -5,7 +5,8 @@ import axios from "axios";
 import { mutate } from "swr";
 import { useGetMaterials } from "@/hooks/useGetMaterials";
 import { useSession } from "next-auth/react";
-import { useGetUsers } from "@/hooks/useGetUser";
+import { toast } from "react-toastify";
+import { Spinner } from "@/components/Spinner";
 
 
 interface EntradasBotonCrearMovimiento {
@@ -24,7 +25,6 @@ const BotonCrearMovimiento = ({
 
 
     const { data } = useSession();
-    const { user } = useGetUsers();
     const { materials } = useGetMaterials();
 
     const [nuevoMovimiento, setNuevoMovimiento] = useState({
@@ -34,15 +34,13 @@ const BotonCrearMovimiento = ({
         userId: "",
     });
 
-    //const [editLoading, setEditLoading] = useState(false);
-    //const infoUsuario = data?.user?.email;
+    const [loading, setLoading] = useState(false);
+
+
     const crearMovimiento = async (e: SyntheticEvent) => {
         e.preventDefault();
-
+        setLoading(true);
         const quantityNumero = parseInt(nuevoMovimiento.quantity, 10);
-
-        const usuarioId = user?.find((user) => user.email === data?.user?.email)
-            ?.id;
 
         try {
             await axios.request({
@@ -51,14 +49,15 @@ const BotonCrearMovimiento = ({
                 data: {
                     ...nuevoMovimiento,
                     quantity: quantityNumero,
-                    userId: usuarioId,
+                    userId: data?.user.id,
                 },
             });
-            await mutate(API_ROUTES.crearInventoryMovement);
-            //toast.success("Exito creando el usuario");
+            await mutate(API_ROUTES.getAllMovimientosInventario);
+            toast.success("Exito creando el movimiento");
         } catch (error) {
-            //toast.error("No se puedo crear el usuario");
+            toast.error("No se puedo crear el movimiento");
         }
+        setLoading(false);
         setOpen(false);
     };
 
@@ -82,7 +81,7 @@ const BotonCrearMovimiento = ({
                 <label htmlFor="material">
                     <span>Material</span>
                     <select
-                        value={nuevoMovimiento.materialId}
+                        defaultValue={nuevoMovimiento.materialId}
                         name="material"
                         required
                         onChange={(e) => {
@@ -106,7 +105,7 @@ const BotonCrearMovimiento = ({
                 <label htmlFor="cantidad">
                     <span>Cantidad</span>
                     <input
-                        value={nuevoMovimiento.quantity}
+                        defaultValue={nuevoMovimiento.quantity}
                         name="cantidad"
                         type="number"
                         required
@@ -122,7 +121,7 @@ const BotonCrearMovimiento = ({
                 <label htmlFor="tipo-movimiento">
                     <span>Tipo de movimiento</span>
                     <select
-                        value={nuevoMovimiento.movementType}
+                        defaultValue={nuevoMovimiento.movementType}
                         name="tipo-movimiento"
                         required
                         onChange={(e) => {
@@ -143,14 +142,14 @@ const BotonCrearMovimiento = ({
                         type="submit"
                         onClick={() => { }}
                         className="bg-blue-500 p-3 rounded-lg text-white font-semibold hover:bg-blue-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-                    >
-                        Crear
+                        disabled={loading}>{loading ? <Spinner/>: <span>Crear</span>}
                     </button>
 
                     <button
                         onClick={() => setOpen(false)}
                         className="bg-gray-500 p-3 rounded-lg text-white font-semibold hover:bg-gray-700 shadow-xl hover:scale-110 disabled:bg-gray-200"
-                    >
+                        disabled={loading}
+                        type="button">
                         Cancelar
                     </button>
                 </div>
