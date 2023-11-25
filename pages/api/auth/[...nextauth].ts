@@ -33,7 +33,8 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.AUTH0_CLIENT_SECRET || '',
             issuer: process.env.AUTH0_ISSUER|| '',
         }),
-    ]
+    ],
+    secret: '1030',
 }
 
 export default NextAuth(authOptions);
